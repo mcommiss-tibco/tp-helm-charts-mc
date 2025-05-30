@@ -31,11 +31,11 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v1
 
-      - name: Update New Files and push to master branch
+      - name: Update New Files and push to main branch
         shell: bash
         working-directory: src
         run: |
-          helm repo index ./temp --merge ../dest/index.yaml --url https://raw.githubusercontent.com/eduardo854/helm-repository/gh-pages/helm/
+          helm repo index ./temp --merge ../dest/index.yaml --url https://raw.githubusercontent.com/mcommiss-tibco/helm-repository/gh-pages/helm/
           mkdir -p ../dest/helm
           echo "Copying files..."
           shopt -s extglob
@@ -45,7 +45,7 @@ jobs:
           echo "n" | cp -pr ./temp/index.yaml ../dest/
           echo "y" | rm -rf ./temp/*
           git config user.name "helm"
-          git config user.email "your-email@example.com"
+          git config user.email "marco.commissaris@cloud.com"
           git add .
           git commit -m "Updated from ref: $GITHUB_SHA"
           git push
@@ -55,7 +55,7 @@ jobs:
         working-directory: dest
         run: |
           git config user.name "helm"
-          git config user.email "your-email@example.com"
+          git config user.email "marco.commissaris@cloud.com"
           git add $(git ls-files -o --exclude-standard)
           git add index.yaml
           git commit -m "Updated from ref: $GITHUB_SHA"
